@@ -177,6 +177,7 @@ public class AudioWebSocket extends WebSocketAdapter
                 JSONObject content = contentAll.getJSONObject("d");
                 ssrc = content.getInt("ssrc");
                 int port = content.getInt("port");
+                String ip = content.getString("ip");
 
                 //Find our external IP and Port using Discord
                 InetSocketAddress externalIpAndPort;
@@ -185,7 +186,7 @@ public class AudioWebSocket extends WebSocketAdapter
                 int tries = 0;
                 do
                 {
-                    externalIpAndPort = handleUdpDiscovery(new InetSocketAddress(endpoint, port), ssrc);
+                    externalIpAndPort = handleUdpDiscovery(new InetSocketAddress(ip, port), ssrc);
                     tries++;
                     if (externalIpAndPort == null && tries > 5)
                     {
